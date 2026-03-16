@@ -9,7 +9,7 @@ extern "C" {
  * @file plib_data_struct.h
  * @brief Définitions types de données et fonctions de manipulation
  * @author Ramiro Najera
- * @version 1.0.7
+ * @version 1.0.1
  * @date 2025-04-23
  */
 
@@ -81,6 +81,13 @@ union CharUsCharUnion
     char charValue;
 };
 
+/** @brief Strcture pour manipuler des chaînes de bytes (bytearray) */
+struct Bytearray
+{
+    unsigned char array[64];
+    unsigned char len;
+};
+
 /**
  * @brief Calcule un CRC 8 bits
  * @param buffer Tableau de données
@@ -97,6 +104,20 @@ unsigned char Utils_Calculate_CRC8_Raw(unsigned char* buffer, unsigned char size
  * @return unsigned char 1 si dans le plage, sinon 0
  */
 unsigned char Utils_Check_In_Range(unsigned int value, unsigned int setpoint, unsigned int tolerance);
+
+/**
+ * @brief Rajoute un byte à la fin de la chaîne de bytes
+ * @param s Structure de chaîne de bytes
+ * @param b Byte à rajouter
+ */
+void Bytearray_Add_Byte(struct Bytearray *s, unsigned char b);
+
+/**
+ * @brief Décale tous les byte de la chaîne de bytes
+ * @param s Structure de chaîne de bytes
+ * @param n Nombre de positions à décaler dans la chaîne de bytes
+ */
+void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n);
 
 #ifdef __cplusplus
 }
