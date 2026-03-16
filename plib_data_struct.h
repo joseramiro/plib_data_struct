@@ -9,7 +9,7 @@ extern "C" {
  * @file plib_data_struct.h
  * @brief Définitions types de données et fonctions de manipulation
  * @author Ramiro Najera
- * @version 1.0.1
+ * @version 1.0.2
  * @date 2025-04-23
  */
 
@@ -118,6 +118,12 @@ void Bytearray_Add_Byte(struct Bytearray *s, unsigned char b);
  * @param n Nombre de positions à décaler dans la chaîne de bytes
  */
 void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n);
+
+/**
+ * @brief Efface tous les bytes de la chaîne de bytes
+ * @param s Structure de chaîne de bytes
+ */
+void Bytearray_Clear(struct Bytearray *s);
 
 #ifdef __cplusplus
 }

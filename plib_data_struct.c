@@ -2,7 +2,7 @@
  * @file plib_data_struct.c
  * @brief Définitions types de données et fonctions de manipulation
  * @author Ramiro Najera
- * @version 1.0.1
+ * @version 1.0.2
  * @date 2025-04-23
  */
 
@@ -61,8 +61,7 @@ void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n)
     // clear if overflow
     if (n >= s->len)
     {
-        memset(s->array, 0, sizeof(s->array));
-        s->len = 0;
+        Bytearray_Clear(s);
         return;
     }
 
@@ -77,4 +76,10 @@ void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n)
         s->array[i] = 0;
 
     s->len = newLen;
+}
+
+void Bytearray_Clear(struct Bytearray *s)
+{
+    memset(s->array, 0, sizeof(s->array));
+    s->len = 0;
 }
