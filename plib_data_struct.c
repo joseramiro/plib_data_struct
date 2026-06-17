@@ -9,17 +9,17 @@
 #include "plib_data_struct.h"
 #include <string.h>
 
-unsigned char Utils_Calculate_CRC8_Raw(unsigned char* buffer, unsigned char size)
+uint8_t Utils_Calculate_CRC8_Raw(uint8_t* buffer, uint8_t size)
 {
-    unsigned char crc = 0xff;
-    unsigned char i, j;
-    for (i = 0; i < size; i++)
+    uint8_t crc = 0xff;
+    
+    for (uint8_t i = 0; i < size; i++)
     {
         crc ^= buffer[i];
-        for (j = 0; j < 8; j++)
+        for (uint8_t j = 0; j < 8; j++)
         {
             if (crc & 0x80)
-                crc = (unsigned char)((crc << 1) ^ 0x32);
+                crc = (uint8_t)((crc << 1) ^ 0x32);
             else
                 crc <<= 1;
         }
@@ -27,7 +27,7 @@ unsigned char Utils_Calculate_CRC8_Raw(unsigned char* buffer, unsigned char size
     return crc;
 }
 
-unsigned char Utils_Check_In_Range(unsigned int value, unsigned int setpoint, unsigned int tolerance)
+uint8_t Utils_Check_In_Range(uint16_t value, uint16_t setpoint, uint16_t tolerance)
 {
     // Calculate thresholds and set 0 if minimum negative
     float setpointF = setpoint;
@@ -46,13 +46,13 @@ unsigned char Utils_Check_In_Range(unsigned int value, unsigned int setpoint, un
     }
 }
 
-void Bytearray_Add_Byte(struct Bytearray *s, unsigned char b)
+void Bytearray_Add_Byte(struct Bytearray *s, uint8_t b)
 {
     if(s->len < sizeof(s->array))
         s->array[s->len++] = b;
 }
 
-void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n)
+void Bytearray_Shift_Left(struct Bytearray *s, uint8_t n)
 {
     // do nothing if array is empty or not shift
     if (n == 0 || s->len == 0)
@@ -66,13 +66,13 @@ void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n)
     }
 
     // move shift data
-    unsigned char newLen = s->len - n;
+    uint8_t newLen = s->len - n;
 
-    for (unsigned char i = 0; i < newLen; i++)
+    for (uint8_t i = 0; i < newLen; i++)
         s->array[i] = s->array[i + n];
 
     // fill with zero the rest
-    for (unsigned char i = newLen; i < s->len; i++)
+    for (uint8_t i = newLen; i < s->len; i++)
         s->array[i] = 0;
 
     s->len = newLen;

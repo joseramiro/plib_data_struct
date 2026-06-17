@@ -13,6 +13,8 @@ extern "C" {
  * @date 2025-04-23
  */
 
+#include <stdint.h>
+
 /** @brief Macro pour calculer taille de tableau */
 #define SIZE_ARRAY(arr) (sizeof(arr) / sizeof((arr)[0]))
 /** @brief Taille d'un char */
@@ -25,11 +27,11 @@ extern "C" {
 #define SIZE_FLOAT      4
 
 /** @brief Combine 2 bytes */
-#define CONCAT(byte1, byte0) (((unsigned int)(byte1) << 8) + (byte0))
+#define CONCAT(byte1, byte0) (((uint16_t)(byte1) << 8) + (byte0))
 /** @brief Retourne le MSB d'un int */
-#define GET_HIGH_BYTE(intValue) ((unsigned char)((intValue >> 8)))
+#define GET_HIGH_BYTE(intValue) ((uint8_t)((intValue >> 8)))
 /** @brief Retourne le LSB d'un int */
-#define GET_LOW_BYTE(intValue) ((unsigned char)((intValue) & 0xFF))
+#define GET_LOW_BYTE(intValue) ((uint8_t)((intValue) & 0xFF))
 /** @brief Met bit à 1 d'un flag */
 #define SET_FLAG_BIT(flag, bit) ((flag) |= (1U << (bit)))
 /** @brief Met bit à 0 d'un flag */
@@ -43,81 +45,81 @@ union FloatUsCharUnion
     /** @brief Valeur float */
     float floatValue;
     /** @brief Chaîne de char */
-    unsigned char usChar[4];
+    uint8_t usChar[4];
 };
 
 /** @brief Union pour manipuler des données entre int et chaine de char */
 union IntUsCharUnion
 {
-    /** @brief Valeur unsigned int */
-    unsigned int usIntValue;
+    /** @brief Valeur uint16_t */
+    uint16_t usIntValue;
     /** @brief Valeur int */
-    int IntValue;
+    int16_t IntValue;
     /** @brief Chaîne de char */
-    unsigned char usChar[2];
+    uint8_t usChar[2];
 };
 
 /** @brief Union pour manipuler des données entre long et chaine de char */
 union LongUsCharUnion
 {
-    /** @brief Valeur unsigned long */
-    unsigned long usLongValue;
+    /** @brief Valeur uint32_t */
+    uint32_t usLongValue;
     /** @brief Valeur long */
     long longValue;
     /** @brief Valeur float */
     float floatValue;
     /** @brief Chaine de char */
-    unsigned char usChar[4];
+    uint8_t usChar[4];
     /** @brief Chaine de int */
-    unsigned int usInt[2];
+    uint16_t usInt[2];
 };
 
-/** @brief Union pour manipuler des données entre char et unsigned char */
+/** @brief Union pour manipuler des données entre char et uint8_t */
 union CharUsCharUnion
 {
-    /** @brief Valeur unsigned char */
-    unsigned char usCharValue;
+    /** @brief Valeur uint8_t */
+    uint8_t usCharValue;
     /** @brief Valeur char */
-    char charValue;
+    int8_t charValue;
 };
 
 /** @brief Strcture pour manipuler des chaînes de bytes (bytearray) */
 struct Bytearray
 {
-    unsigned char array[64];
-    unsigned char len;
+    uint8_t array[64];
+    uint8_t len;
 };
 
 /**
  * @brief Calcule un CRC 8 bits
  * @param buffer Tableau de données
  * @param size Taille du tableau
- * @return unsigned char CRC
+ * @return uint8_t CRC
  */
-unsigned char Utils_Calculate_CRC8_Raw(unsigned char* buffer, unsigned char size);
+uint8_t Utils_Calculate_CRC8_Raw(uint8_t* buffer, uint8_t size);
 
 /**
  * @brief Vérifie si un numéro est dans une plage de données
  * @param value Valeur d'entrée
  * @param setpoint Valeur de consigne
  * @param tolerance Tolérance
- * @return unsigned char 1 si dans le plage, sinon 0
+ * @return uint8_t 1 si dans le plage, sinon 0
  */
-unsigned char Utils_Check_In_Range(unsigned int value, unsigned int setpoint, unsigned int tolerance);
+uint8_t Utils_Check_In_Range(uint16_t value, uint16_t setpoint, uint16_t tolerance);
 
 /**
  * @brief Rajoute un byte à la fin de la chaîne de bytes
  * @param s Structure de chaîne de bytes
  * @param b Byte à rajouter
  */
-void Bytearray_Add_Byte(struct Bytearray *s, unsigned char b);
+void Bytearray_Add_Byte(struct Bytearray *s, uint8_t b);
 
 /**
  * @brief Décale tous les byte de la chaîne de bytes
  * @param s Structure de chaîne de bytes
  * @param n Nombre de positions à décaler dans la chaîne de bytes
  */
-void Bytearray_Shift_Left(struct Bytearray *s, unsigned char n);
+void Bytearray_Shift_Left(struct Bytearray *s, uint8_t n);
 
 /**
  * @brief Efface tous les bytes de la chaîne de bytes

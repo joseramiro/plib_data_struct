@@ -2,6 +2,9 @@
 
 All notable changes to this library will be documented in this file.
 
+## [1.1.0] - 2026-06-17
+- Modified variables types to stdint.h types
+
 ## [1.0.2] - 2026-03-16
 ### Added
 - Added clear function for bytearray structure
