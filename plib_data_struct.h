@@ -105,7 +105,7 @@ uint8_t Utils_Calculate_CRC8_Raw(uint8_t* buffer, uint8_t size);
  * @param tolerance Tolérance
  * @return uint8_t 1 si dans le plage, sinon 0
  */
-uint8_t Utils_Check_In_Range(uint16_t value, uint16_t setpoint, uint16_t tolerance);
+uint8_t IsInRange(uint16_t value, uint16_t setpoint, uint16_t tolerance);
 
 /**
  * @brief Rajoute un byte à la fin de la chaîne de bytes
